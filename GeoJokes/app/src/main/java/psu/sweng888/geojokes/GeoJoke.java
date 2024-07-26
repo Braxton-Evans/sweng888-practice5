@@ -12,6 +12,7 @@ public class GeoJoke {
     public GeoJoke(String intro, String punchline, LatLng location) {
         this.intro = intro;
         this.punchline = punchline;
+        this.location = location;
     }
 
     // Getter methods
