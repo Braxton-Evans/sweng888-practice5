@@ -1,4 +1,4 @@
-package psu.sweng888.geojokes.ui.dashboard;
+package psu.sweng888.geojokes.ui.cardview;
 
 import android.os.Bundle;
 import android.view.LayoutInflater;
@@ -10,22 +10,22 @@ import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProvider;
 
-import psu.sweng888.geojokes.databinding.FragmentDashboardBinding;
+import psu.sweng888.geojokes.databinding.FragmentCardViewBinding;
 
-public class DashboardFragment extends Fragment {
+public class CardViewFragment extends Fragment {
 
-    private FragmentDashboardBinding binding;
+    private FragmentCardViewBinding binding;
 
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
-        DashboardViewModel dashboardViewModel =
-                new ViewModelProvider(this).get(DashboardViewModel.class);
+        CardViewModel cardViewModel =
+                new ViewModelProvider(this).get(CardViewModel.class);
 
-        binding = FragmentDashboardBinding.inflate(inflater, container, false);
+        binding = FragmentCardViewBinding.inflate(inflater, container, false);
         View root = binding.getRoot();
 
         final TextView textView = binding.textDashboard;
-        dashboardViewModel.getText().observe(getViewLifecycleOwner(), textView::setText);
+        cardViewModel.getText().observe(getViewLifecycleOwner(), textView::setText);
         return root;
     }
 

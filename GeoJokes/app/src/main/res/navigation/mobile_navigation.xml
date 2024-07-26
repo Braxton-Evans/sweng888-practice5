@@ -7,19 +7,14 @@
 
     <fragment
         android:id="@+id/navigation_home"
-        android:name="psu.sweng888.geojokes.ui.home.HomeFragment"
-        android:label="@string/title_home"
-        tools:layout="@layout/fragment_home" />
+        android:name="psu.sweng888.geojokes.ui.worldview.WorldViewFragment"
+        android:label="@string/title_world_view"
+        tools:layout="@layout/fragment_world_view" />
 
     <fragment
         android:id="@+id/navigation_dashboard"
-        android:name="psu.sweng888.geojokes.ui.dashboard.DashboardFragment"
-        android:label="@string/title_dashboard"
-        tools:layout="@layout/fragment_dashboard" />
+        android:name="psu.sweng888.geojokes.ui.cardview.CardViewFragment"
+        android:label="@string/title_card_view"
+        tools:layout="@layout/fragment_card_view" />
 
-    <fragment
-        android:id="@+id/navigation_notifications"
-        android:name="psu.sweng888.geojokes.ui.notifications.NotificationsFragment"
-        android:label="@string/title_notifications"
-        tools:layout="@layout/fragment_notifications" />
 </navigation>
