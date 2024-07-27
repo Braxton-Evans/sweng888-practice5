@@ -1,7 +1,9 @@
 <resources>
     <string name="app_name">GeoJokes</string>
-    <string name="title_world_view">World View</string>
-    <string name="title_card_view">Card View</string>
+    <string name="nav_world_view">World View</string>
+    <string name="nav_card_view">Card View</string>
+    <string name="title_world_view">Geographical Jokes Mapped</string>
+    <string name="title_card_view">Geographical Jokes Flashcards</string>
     <string name="joke_intro_placeholder">Joke Intro Placeholder</string>
     <string name="joke_punchline_placeholder">Joke Punchline Placeholder</string>
 </resources>

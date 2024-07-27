@@ -13,8 +13,7 @@ public class GeoJokes {
     public GeoJokes() {
         list = new ArrayList<>();
         list.add(new GeoJoke("Why is Justin Timberlake bad at geography?",
-            "Because he sings this song, ‘Crimea River’, but I checked, "
-            + "and Crimea is a peninsula, not a river!",
+            "Because he sings ‘Crimea River’, but Crimea is a peninsula, not a river!",
             new LatLng(45.34230566752598, 34.503465126722276),
             R.drawable.crimea));
 
@@ -27,6 +26,17 @@ public class GeoJokes {
             "Because he had a ‘Tooth-Ankhamun’!",
             new LatLng(29.975987328399018, 31.130911858024234),
             R.drawable.pharaoh));
+
+        list.add(new GeoJoke("Why did the gladiator quit his job?",
+            "Because he wasn't Roman around enough!",
+            new LatLng(41.89020996751918, 12.492336885184411),
+            R.drawable.gladiator));
+
+        list.add(new GeoJoke("Why did the Taj Mahal get a sunburn?",
+                "Because it's marble-ous!",
+                new LatLng(27.175001608467714, 78.04214219818748),
+                R.drawable.tajmahal));
+
     }
 
     // Individual GeoJoke class

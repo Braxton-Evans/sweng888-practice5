@@ -4,11 +4,11 @@
     <item
         android:id="@+id/navigation_home"
         android:icon="@android:drawable/ic_menu_mapmode"
-        android:title="@string/title_world_view" />
+        android:title="@string/nav_world_view" />
 
     <item
         android:id="@+id/navigation_dashboard"
         android:icon="@android:drawable/stat_notify_chat"
-        android:title="@string/title_card_view" />
+        android:title="@string/nav_card_view" />
 
 </menu>

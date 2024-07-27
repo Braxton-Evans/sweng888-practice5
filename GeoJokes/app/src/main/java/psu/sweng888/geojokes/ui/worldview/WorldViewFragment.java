@@ -68,16 +68,13 @@ public class WorldViewFragment extends Fragment implements OnMapReadyCallback {
     public void onMapReady(@NonNull GoogleMap googleMap) {
         googleMap.setOnMapLoadedCallback(() -> {
             // Add markers for each GeoJoke
-            LatLngBounds bounds = null;
             for (GeoJokes.GeoJoke joke : geoJokes.list) {
-                LatLng loc = joke.getLocation();
                 googleMap.addMarker(
                     new MarkerOptions().position(joke.getLocation()).title(joke.getIntro()));
-                bounds = (bounds == null) ? new LatLngBounds(loc, loc) : bounds.including(loc);
             }
-            // Position the camera on the GeoJokes
-            assert bounds != null;
-            googleMap.moveCamera(CameraUpdateFactory.newLatLngBounds(bounds, 150));
+            // Position the camera on the last GeoJoke
+            googleMap.moveCamera(CameraUpdateFactory.newLatLngZoom(
+                    geoJokes.list.get(geoJokes.list.size() - 1).getLocation(), 16));
         });
     }
 }

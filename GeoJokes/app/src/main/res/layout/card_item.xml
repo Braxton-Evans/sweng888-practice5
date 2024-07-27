@@ -11,8 +11,7 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="vertical"
-        android:padding="16dp">
+        android:orientation="vertical">
 
         <ImageView
             android:id="@+id/geo_joke_image"
@@ -25,19 +24,21 @@
             android:id="@+id/geo_joke_intro"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="8dp"
+            android:padding="8dp"
             android:textAppearance="@style/TextAppearance.MaterialComponents.Subtitle1"
             android:text="@string/joke_intro_placeholder" />
 
         <com.google.android.material.divider.MaterialDivider
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content" />
+            android:layout_height="wrap_content"
+            android:layout_marginTop="4dp"/>
 
         <TextView
             android:id="@+id/geo_joke_punchline"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="4dp"
+            android:padding="8dp"
             android:textAppearance="@style/TextAppearance.MaterialComponents.Body1"
             android:text="@string/joke_punchline_placeholder" />
 
