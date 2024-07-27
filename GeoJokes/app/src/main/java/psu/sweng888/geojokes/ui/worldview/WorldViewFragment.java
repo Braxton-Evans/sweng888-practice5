@@ -1,46 +1,59 @@
 package psu.sweng888.geojokes.ui.worldview;
 
+// Import Android
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+// Import AndroidX
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProvider;
 
+// Import Google Maps API
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.OnMapReadyCallback;
 import com.google.android.gms.maps.SupportMapFragment;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.LatLngBounds;
-import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
 
-import java.util.ArrayList;
-
-import psu.sweng888.geojokes.GeoJoke;
+// Import local classes
+import psu.sweng888.geojokes.GeoJokes;
 import psu.sweng888.geojokes.R;
 import psu.sweng888.geojokes.databinding.FragmentWorldViewBinding;
 
+// World/Map View Fragment class definition
 public class WorldViewFragment extends Fragment implements OnMapReadyCallback {
 
+    // Instance variables
     private FragmentWorldViewBinding binding;
-    private final ArrayList<GeoJoke> geoJokes = loadGeoJokes();
+    private final GeoJokes geoJokes = new GeoJokes();
 
+    // Fragment lifecycle method
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
-        WorldViewModel worldViewModel = new ViewModelProvider(this).get(WorldViewModel.class);
+        // Inflate the layout for this fragment
         binding = FragmentWorldViewBinding.inflate(inflater, container, false);
 
+        // Initialize the WorldViewModel - previously used to load a "live" string into the fragment
+        WorldViewModel worldViewModel = new ViewModelProvider(this).get(WorldViewModel.class);
+
         // Obtain the SupportMapFragment and get notified when the map is ready to be used
-        SupportMapFragment mapFragment = (SupportMapFragment) getChildFragmentManager()
-                .findFragmentById(R.id.map);
-        assert mapFragment != null;
-        mapFragment.getMapAsync(this);
+        SupportMapFragment mapFrag = (SupportMapFragment) getChildFragmentManager().findFragmentById(R.id.map);
+        assert mapFrag != null;
+        mapFrag.getMapAsync(this);
 
         return binding.getRoot();
+    }
+
+    // Fragment lifecycle method
+    @Override
+    public void onDestroyView() {
+        super.onDestroyView();
+        binding = null;
     }
 
     /**
@@ -53,50 +66,18 @@ public class WorldViewFragment extends Fragment implements OnMapReadyCallback {
      */
     @Override
     public void onMapReady(@NonNull GoogleMap googleMap) {
-
-        googleMap.setOnMapLoadedCallback(new GoogleMap.OnMapLoadedCallback() {
-            @Override
-            public void onMapLoaded() {
-                // Add markers for each GeoJoke
-                LatLngBounds bounds = null;
-                for (GeoJoke joke : geoJokes) {
-                    LatLng loc = joke.getLocation();
-                    googleMap.addMarker(
-                        new MarkerOptions().position(joke.getLocation()).title(joke.getIntro()));
-                    bounds = (bounds == null) ? new LatLngBounds(loc, loc) : bounds.including(loc);
-                }
-                // Position the camera on the GeoJokes
-                if (bounds != null)
-                    googleMap.moveCamera(CameraUpdateFactory.newLatLngBounds(bounds, 150));
+        googleMap.setOnMapLoadedCallback(() -> {
+            // Add markers for each GeoJoke
+            LatLngBounds bounds = null;
+            for (GeoJokes.GeoJoke joke : geoJokes.list) {
+                LatLng loc = joke.getLocation();
+                googleMap.addMarker(
+                    new MarkerOptions().position(joke.getLocation()).title(joke.getIntro()));
+                bounds = (bounds == null) ? new LatLngBounds(loc, loc) : bounds.including(loc);
             }
+            // Position the camera on the GeoJokes
+            assert bounds != null;
+            googleMap.moveCamera(CameraUpdateFactory.newLatLngBounds(bounds, 150));
         });
-
-    }
-
-    @Override
-    public void onDestroyView() {
-        super.onDestroyView();
-        binding = null;
-    }
-
-    // Load a list of hard-coded GeoJokes
-    @NonNull
-    private ArrayList<GeoJoke> loadGeoJokes() {
-        ArrayList<GeoJoke> jokes = new ArrayList<>();
-
-        jokes.add(new GeoJoke("Why is Justin Timberlake bad at geography?",
-                "Because he sings this song, ‘Crimea River’, but I checked, "
-                        + "and Crimea is a peninsula, not a river!",
-                new LatLng(45.34230566752598, 34.503465126722276)));
-
-        jokes.add(new GeoJoke("Why couldn't the Italian couple afford a fancy date?",
-                "Because the price of a dinner cruise in Paris is in-Seine!",
-                new LatLng(48.85790244183987, 2.2893782697816705)));
-
-        jokes.add(new GeoJoke("Why did the Egyptian pharaoh visit the dentist?",
-                "Because he had a ‘Tooth-Ankhamun’!",
-                new LatLng(29.975987328399018, 31.130911858024234)));
-
-        return jokes;
     }
 }

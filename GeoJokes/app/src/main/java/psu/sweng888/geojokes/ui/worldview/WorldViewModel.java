@@ -6,7 +6,8 @@ import androidx.lifecycle.ViewModel;
 
 public class WorldViewModel extends ViewModel {
 
-    private final MutableLiveData<String> mText;
+    // Does nothing - previously used to load a "live" string into the fragment
+    /*private final MutableLiveData<String> mText;
 
     public WorldViewModel() {
         mText = new MutableLiveData<>();
@@ -15,5 +16,5 @@ public class WorldViewModel extends ViewModel {
 
     public LiveData<String> getText() {
         return mText;
-    }
+    }*/
 }

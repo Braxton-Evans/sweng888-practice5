@@ -6,7 +6,8 @@ import androidx.lifecycle.ViewModel;
 
 public class CardViewModel extends ViewModel {
 
-    private final MutableLiveData<String> mText;
+    // Does nothing - previously used to load a "live" string into the fragment
+    /*private final MutableLiveData<String> mText;
 
     public CardViewModel() {
         mText = new MutableLiveData<>();
@@ -15,5 +16,5 @@ public class CardViewModel extends ViewModel {
 
     public LiveData<String> getText() {
         return mText;
-    }
+    }*/
 }
