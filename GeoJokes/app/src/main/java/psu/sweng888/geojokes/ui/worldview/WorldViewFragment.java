@@ -5,6 +5,7 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Toast;
 
 // Import AndroidX
 import androidx.annotation.NonNull;
@@ -27,7 +28,7 @@ import psu.sweng888.geojokes.R;
 import psu.sweng888.geojokes.databinding.FragmentWorldViewBinding;
 
 // World/Map View Fragment class definition
-public class WorldViewFragment extends Fragment implements OnMapReadyCallback {
+public class WorldViewFragment extends Fragment implements OnMapReadyCallback, GoogleMap.OnMarkerClickListener {
 
     // Instance variables
     private FragmentWorldViewBinding binding;
@@ -75,9 +76,15 @@ public class WorldViewFragment extends Fragment implements OnMapReadyCallback {
         mMap = googleMap;
         mMap.setOnMapLoadedCallback(() -> {
             // Add markers for each GeoJoke
+            int jokeIdx = 0;
             for (GeoJokes.GeoJoke joke : geoJokes.list) {
-                mMap.addMarker(
-                    new MarkerOptions().position(joke.getLocation()).title(joke.getIntro()));
+                Marker addedMarker = mMap.addMarker(new MarkerOptions()
+                                                   .position(joke.getLocation())
+                                                   .title(joke.getIntro())
+                                                   .contentDescription(joke.getPunchline()));
+                addedMarker.setTag(jokeIdx++);
+                // Set listener for marker click
+                mMap.setOnMarkerClickListener(this);
             }
             // Position the camera on the last GeoJoke
             mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(
@@ -101,13 +108,12 @@ public class WorldViewFragment extends Fragment implements OnMapReadyCallback {
         };
     }
 
-    // Onclick for markers on the map
-    public GoogleMap.OnMarkerClickListener MarkerClicked(Marker marker) {
-        return view -> {
-            // Toggle the marker's title between the intro and punchline
-            if (marker.getTitle().equals(geoJokes.list.get(JokeIdx).getIntro())) {
-                marker.setTitle(geoJokes.list.get(JokeIdx).getPunchline());
-            }
-        };
+    @Override
+    public boolean onMarkerClick(@NonNull Marker marker) {
+        // Get the joke from the tag
+        GeoJokes.GeoJoke joke = geoJokes.list.get((int) marker.getTag());
+        // Display the punchline in a Toast
+        Toast.makeText(getContext(), joke.getPunchline(), Toast.LENGTH_LONG).show();
+        return false;
     }
 }
